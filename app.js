@@ -1,6 +1,7 @@
 const express = require("express");
 const config = require("./config/index");
-const database = require("./database/index");
+const { database } = require("./database/index");
+const routes = require('./routes/index')
 
 const app = express();
 
@@ -11,13 +12,16 @@ app.get("/health", (req, res) => {
   return res.status(200).json({ status: "OK" });
 });
 
-database.authenticate()
+app.use('/v1', routes)
+
+database
+  .authenticate()
   .then(async () => {
     console.log("Database connection established successfully.");
     await database.sync();
     console.log("Database synced successfully.");
-    
-    app.listen(config.port, () => {
+
+    app.listen(parseInt(config.port), () => {
       console.log(`Server is running on port ${config.port}`);
     });
   })

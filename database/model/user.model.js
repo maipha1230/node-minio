@@ -1,8 +1,8 @@
-const { Sequelize, DataTypes, Model } = require('sequelize')
+const { Sequelize, DataTypes } = require('sequelize')
 
 /** 
  * @param {Sequelize} sequelize
- * @returns {Model}
+ * @returns {import('sequelize').ModelCtor<import('sequelize').Model<any, any>>}
  * 
 */
 module.exports = (sequelize) => {
@@ -16,6 +16,7 @@ module.exports = (sequelize) => {
         username: {
             field: "username",
             type: DataTypes.STRING(150),
+            unique: true,
             allowNull: false
         },
         imageObjectName: {

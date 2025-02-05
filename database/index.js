@@ -13,4 +13,7 @@ const sequelize = new Sequelize({
 
 const userModel = UserModel(sequelize)
 
-module.exports = sequelize;
+module.exports = {
+  database: sequelize,
+  UserModel: userModel
+}
